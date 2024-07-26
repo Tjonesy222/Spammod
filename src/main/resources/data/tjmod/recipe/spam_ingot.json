@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.80,
+  "group": "iron_ingot",
+  "ingredient": {
+    "item": "tjmod:spamcan"
+  },
+  "result": {
+    "id": "tjmod:spam"
+  }
+
+
+}
