@@ -1,5 +1,6 @@
 package io.github.Tjonesy222.block;
 
+import io.github.Tjonesy222.block.custom.spamfood;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -22,7 +23,7 @@ public class ModBlocks {
             ()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE)));
 
     public static final DeferredBlock<Block> SPAMFOOD = BLOCKS.register("spamfood",
-            ()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
+            ()-> new spamfood(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
 
 

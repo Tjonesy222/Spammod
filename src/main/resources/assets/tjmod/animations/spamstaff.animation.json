@@ -13,6 +13,29 @@
 						"2.75": {
 							"vector": [0, -360, 0]
 						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.3333": {
+							"vector": [0, -0.6, 0],
+							"easing": "easeOutSine"
+						},
+						"2.75": {
+							"vector": [0, 0, 0],
+							"easing": "easeInQuad"
+						}
+					}
+				},
+				"bigspam": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.75": {
+							"vector": [0, 360, 0]
+						}
 					}
 				}
 			}
