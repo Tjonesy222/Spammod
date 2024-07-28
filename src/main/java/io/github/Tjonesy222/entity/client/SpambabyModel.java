@@ -1,9 +1,13 @@
 package io.github.Tjonesy222.entity.client;
 
+import com.ibm.icu.number.Scale;
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.Tjonesy222.SpamMod;
 import io.github.Tjonesy222.entity.custom.SpambabyEntity;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.neoforged.neoforge.client.extensions.IPoseStackExtension;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
@@ -26,6 +30,7 @@ public class SpambabyModel extends GeoModel<SpambabyEntity> {
     public ResourceLocation getAnimationResource(SpambabyEntity animatable) {
         return ResourceLocation.fromNamespaceAndPath(SpamMod.MODID, "animations/spambaby.animation.json");
     }
+
     @Override
     public void setCustomAnimations(SpambabyEntity animatible, long instanceId, AnimationState<SpambabyEntity> animationState) {
         GeoBone head = getAnimationProcessor().getBone("head");
@@ -36,6 +41,6 @@ public class SpambabyModel extends GeoModel<SpambabyEntity> {
             head.setRotX(entityModelData.headPitch() * Mth.DEG_TO_RAD);
             head.setRotY(entityModelData.netHeadYaw() * Mth.DEG_TO_RAD);
         }
-        super.setCustomAnimations(animatible,instanceId,animationState);
+        super.setCustomAnimations(animatible, instanceId, animationState);
     }
 }

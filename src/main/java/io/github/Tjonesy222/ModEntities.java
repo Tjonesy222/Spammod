@@ -15,7 +15,7 @@ public class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<SpambabyEntity>> SPAMBABY =
     ENTITY_TYPES.register("spambaby", () ->
             EntityType.Builder.of(SpambabyEntity::new, MobCategory.CREATURE)
-                    .sized(1.5f,1.75f)
+                    .sized(1,1.5f)
                     .build( ResourceLocation.fromNamespaceAndPath(SpamMod.MODID,"spambaby").toString()));
 
     public static void register(IEventBus eventBus) {

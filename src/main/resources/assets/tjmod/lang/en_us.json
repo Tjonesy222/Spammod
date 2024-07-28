@@ -10,6 +10,8 @@
   "block.tjmod.spamblock": "Spam Block",
   "block.tjmod.spamore": "Spam Ore",
   "block.tjmod.spamdeep": "Deepslate Spam Ore",
-  "block.tjmod.spamfood": "Spam Cake"
+  "block.tjmod.spamfood": "Spam Cake",
+
+  "entity.tjmod.spambaby": "Spam Baby"
 
 }

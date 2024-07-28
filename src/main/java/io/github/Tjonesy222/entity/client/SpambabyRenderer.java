@@ -14,6 +14,7 @@ import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.GeoRenderer;
 
 public class SpambabyRenderer extends GeoEntityRenderer<SpambabyEntity> {
 
@@ -26,4 +27,8 @@ public class SpambabyRenderer extends GeoEntityRenderer<SpambabyEntity> {
         return ResourceLocation.fromNamespaceAndPath(SpamMod.MODID, "textures/entity/spambaby.png");
     }
 
-}
+    }
+
+
+
+
