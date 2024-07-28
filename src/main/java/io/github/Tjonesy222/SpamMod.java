@@ -18,6 +18,7 @@ public class SpamMod {
         ItemInit.ITEMS.register(bus);
         ModBlocks.BLOCKS.register(bus);
         ModTabs.CREATIVE_TABS.register(bus);
+        ModEntities.ENTITY_TYPES.register(bus);
 
 
 
