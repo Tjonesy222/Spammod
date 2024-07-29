@@ -27,6 +27,7 @@ public class ModTabs {
                         output.accept(ItemInit.SPAM_FRIES.get());
                         output.accept(ItemInit.SPAMCAN.get());
                         output.accept(ItemInit.SPAMSTAFF.get());
+                        output.accept(ItemInit.SPAMBALL.get());
                         output.accept(ModBlocks.SPAMBLOCK.get());
                         output.accept(ModBlocks.SPAMORE.get());
                         output.accept(ModBlocks.SPAMDEEP.get());
