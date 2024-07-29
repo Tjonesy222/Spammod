@@ -31,9 +31,10 @@ public class SpambabyEntity extends Monster implements GeoEntity {
     protected void registerGoals() {
 this.goalSelector.addGoal(1,new FloatGoal(this));
     this.goalSelector.addGoal(3, new MeleeAttackGoal(this,0.7f,false));
-    this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+    this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
     this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.5f));
-    this.goalSelector.addGoal(5, new JumpGoal() {
+    this.goalSelector.addGoal(4, new RandomStrollGoal(this,0.7));
+    this.goalSelector.addGoal(6, new JumpGoal() {
         @Override
         public boolean canUse() {
             return true;
