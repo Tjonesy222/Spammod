@@ -36,9 +36,11 @@ public class SpamProjEntity extends AbstractArrow implements GeoEntity {
 
     public void tick() {
         super.tick();
-        // 10 seconds (200 ticks) should be enough to hit something
-        if (this.tickCount > 200 && !this.inGround) {
+//200 should be enough to hit somthing
+        if (this.tickCount > 20) {
             this.setNoGravity(false);
+            if(inGround) kill();
+
         }
     }
 
@@ -52,12 +54,26 @@ public class SpamProjEntity extends AbstractArrow implements GeoEntity {
             this.level().broadcastEntityEvent(this,((byte) 3));
             result.getEntity().hurt(this.damageSources().magic(),10f);
 
+
         }
 
 
 
         super.onHitEntity(result);
     }
+
+    @Override
+    protected void onHitBlock(BlockHitResult result) {
+        if(!this.level().isClientSide()){
+            this.level().broadcastEntityEvent(this,((byte) 3));
+
+
+
+
+
+        super.onHitBlock(result);
+    }
+      }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {

@@ -25,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,19 +47,39 @@ public class AnimatedItem extends BowItem implements GeoItem {
 //item proporties
 
 
-    public void adjustAttributes(ItemAttributeModifierEvent event) {
-        ItemStack stack = event.getItemStack();
-        event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, getDamage(stack) - 1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
 
+
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
+        if (entityLiving instanceof Player player) {
+            ItemStack itemstack = player.getProjectile(stack);
+            if (!itemstack.isEmpty()) {
+                int i = this.getUseDuration(stack, entityLiving) - timeLeft;
+                i = EventHooks.onArrowLoose(stack, level, player, i, !itemstack.isEmpty());
+                if (i < 0) {
+                    return;
+                }
+
+                float f = getPowerForTime(i);
+                if (!((double)f < 0.1)) {
+                    List<ItemStack> list = draw(stack, itemstack, player);
+                    if (level instanceof ServerLevel) {
+                        ServerLevel serverlevel = (ServerLevel)level;
+                        if (!list.isEmpty()) {
+                            this.shoot(serverlevel, player, player.getUsedItemHand(), stack, list, f * 1.1F, 1.0F, f == 1.0F, (LivingEntity)null);
+                        }
+                    }
+                    level.playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.SLIME_ATTACK, SoundSource.PLAYERS, 1.0F, -5.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                    player.awardStat(Stats.ITEM_USED.get(this));
+                }}}}
+
+
+
+
+
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
+        return 72000;
     }
 
-    public void onUseTick(@Nonnull Level world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int timeLeft) {
-      {
-            player.stopUsingItem();
-            stack.releaseUsing(world, player, 1200);
-            player.startUsingItem(player.getUsedItemHand());
-        }
-    }
 
     public float getUseTick(@Nonnull ItemStack stack) {
         float useTick = 200.0F;
