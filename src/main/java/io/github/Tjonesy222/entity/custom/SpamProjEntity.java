@@ -5,10 +5,14 @@ import io.github.Tjonesy222.custom.SpamProjItem;
 import io.github.Tjonesy222.init.ItemInit;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
@@ -16,45 +20,43 @@ import software.bernie.geckolib.animation.*;
 
 import javax.xml.transform.Result;
 
-public class SpamProjEntity extends ThrowableItemProjectile implements GeoEntity {
+public class SpamProjEntity extends AbstractArrow implements GeoEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public SpamProjEntity(EntityType<? extends ThrowableItemProjectile> entityType, Level level) {
+    public SpamProjEntity(EntityType<? extends SpamProjEntity> entityType, Level level, ItemStack itemStack) {
         super(entityType, level);
     }
-
-    @Override
-    protected Item getDefaultItem() {
-        return ItemInit.SPAMBALL.get();
+    public SpamProjEntity(Level level, double x, double y, double z, ItemStack itemStack) {
+        super(ModEntities.SPAMPROJENTITY.get(), x, y, z, level, itemStack, (ItemStack)null);
     }
 
-
-    public SpamProjEntity(Level level) {
-        super(ModEntities.SPAMPROJENTITY.get(), level);
+    public SpamProjEntity(EntityType<SpamProjEntity> entityType, Level level) {
+        this(entityType, level, new ItemStack(Items.ARROW));
     }
 
-    public SpamProjEntity(Level level, LivingEntity livingEntity) {
-            super(ModEntities.SPAMPROJENTITY.get(), livingEntity, level);
+    public void tick() {
+        super.tick();
+        // 10 seconds (200 ticks) should be enough to hit something
+        if (this.tickCount > 200 && !this.inGround) {
+            this.setNoGravity(false);
         }
+    }
 
-
-
-
-
-
+    protected ItemStack getDefaultPickupItem() {
+        return new ItemStack(Items.ARROW);
+    }
 
     @Override
-    protected void onHitBlock(BlockHitResult result) {
-        if (!this.level().isClientSide()) {
+    protected void onHitEntity(EntityHitResult result) {
+        if(!this.level().isClientSide()){
             this.level().broadcastEntityEvent(this,((byte) 3));
-            this.clearFire();
-
-
+            result.getEntity().hurt(this.damageSources().magic(),10f);
 
         }
 
 
-         super.onHitBlock(result);
+
+        super.onHitEntity(result);
     }
 
     @Override
