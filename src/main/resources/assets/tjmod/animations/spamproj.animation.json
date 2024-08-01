@@ -3,15 +3,15 @@
 	"animations": {
 		"animation.model.spin": {
 			"loop": true,
-			"animation_length": 1,
+			"animation_length": 1.5,
 			"bones": {
 				"bone": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"1.0": {
-							"vector": [365, 0, 0]
+						"1.5": {
+							"vector": [360, 0, 0]
 						}
 					}
 				}
