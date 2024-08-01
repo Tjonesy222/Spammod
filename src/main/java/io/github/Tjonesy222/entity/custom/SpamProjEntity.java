@@ -13,6 +13,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.neoforged.neoforge.event.EventHooks;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
@@ -37,12 +38,16 @@ public class SpamProjEntity extends AbstractArrow implements GeoEntity {
     public void tick() {
         super.tick();
 //200 should be enough to hit somthing
-        if (this.tickCount > 20) {
+        if (this.tickCount > 0) {
             this.setNoGravity(false);
             if(inGround) kill();
 
+
+
+
         }
     }
+
 
     protected ItemStack getDefaultPickupItem() {
         return new ItemStack(Items.ARROW);
@@ -53,7 +58,9 @@ public class SpamProjEntity extends AbstractArrow implements GeoEntity {
         if(!this.level().isClientSide()){
             this.level().broadcastEntityEvent(this,((byte) 3));
             result.getEntity().hurt(this.damageSources().magic(),10f);
-
+            boolean flag = !EventHooks.canEntityGrief(this.level(), this.getOwner());
+            this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionPower, flag, Level.ExplosionInteraction.MOB);
+            this.discard();
 
         }
 
@@ -61,11 +68,15 @@ public class SpamProjEntity extends AbstractArrow implements GeoEntity {
 
         super.onHitEntity(result);
     }
+    private int explosionPower = 2;
 
     @Override
     protected void onHitBlock(BlockHitResult result) {
         if(!this.level().isClientSide()){
             this.level().broadcastEntityEvent(this,((byte) 3));
+            boolean flag = !EventHooks.canEntityGrief(this.level(), this.getOwner());
+            this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionPower, flag, Level.ExplosionInteraction.MOB);
+            this.discard();
 
 
 
