@@ -1,10 +1,14 @@
 package io.github.Tjonesy222.entity.custom;
 
+import io.github.Tjonesy222.ModEntities;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -15,6 +19,7 @@ import software.bernie.geckolib.animation.*;
 
 public class JellyBabyEntity extends Monster implements GeoEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+
 
     public JellyBabyEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -50,16 +55,25 @@ public class JellyBabyEntity extends Monster implements GeoEntity {
 
 
     }
+//Spawn Spambabys on death//
+    @Override
+    public void die(DamageSource cause) {
+        super.die(cause);
 
+        if (!this.level().isClientSide) {
+            ServerLevel serverLevel = (ServerLevel) this.level();
+            int numberOfBabys = 3;
 
-
-
-
-
-
-
-
-
+            for (int i = 0; i < numberOfBabys; i++) {
+                SpambabyEntity spambaby = ModEntities.SPAMBABY.get().create(serverLevel);
+                if (spambaby != null) {
+                    spambaby.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot() + 0.5f, this.getXRot());
+                    serverLevel.addFreshEntity(spambaby);
+                }
+            }
+        }
+    }
+    //Spawn Spambabys on death//
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {

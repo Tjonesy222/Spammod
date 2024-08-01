@@ -1,6 +1,7 @@
 package io.github.Tjonesy222;
 
 import io.github.Tjonesy222.block.ModBlocks;
+import io.github.Tjonesy222.effect.ModEffects;
 import io.github.Tjonesy222.entity.client.JellyBabyRenderer;
 import io.github.Tjonesy222.entity.client.SpamProjRenderer;
 import io.github.Tjonesy222.entity.client.SpambabyRenderer;
@@ -27,6 +28,8 @@ public class SpamMod {
         ModBlocks.BLOCKS.register(bus);
         ModTabs.CREATIVE_TABS.register(bus);
         ModEntities.ENTITY_TYPES.register(bus);
+        ModEffects.MOBEFFECTS.register(bus);
+
     }
 @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value =  Dist.CLIENT)
 public static class ClientModEvents{
