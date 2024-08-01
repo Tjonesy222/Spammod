@@ -57,7 +57,7 @@ public class SpamProjEntity extends AbstractArrow implements GeoEntity {
     protected void onHitEntity(EntityHitResult result) {
         if(!this.level().isClientSide()){
             this.level().broadcastEntityEvent(this,((byte) 3));
-            result.getEntity().hurt(this.damageSources().magic(),10f);
+           // result.getEntity().hurt(this.damageSources().magic(),10f); Use this for damage on hit //
             boolean flag = !EventHooks.canEntityGrief(this.level(), this.getOwner());
             this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionPower, flag, Level.ExplosionInteraction.MOB);
             this.discard();

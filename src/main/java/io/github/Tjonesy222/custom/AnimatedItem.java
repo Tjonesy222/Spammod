@@ -77,8 +77,19 @@ public class AnimatedItem extends BowItem implements GeoItem {
 
 
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return 72000;
+        return 102000;
     }
+
+    public static float getPowerForTime(int charge) {
+        float f = (float)charge / 20.0F;
+        f = (f * f + f * 2.0F) / 3.0F;
+        if (f > 1.0F) {
+            f = 1.0F;
+        }
+
+        return f;
+    }
+
 
 
     public float getUseTick(@Nonnull ItemStack stack) {
