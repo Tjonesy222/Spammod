@@ -1,5 +1,6 @@
 package io.github.Tjonesy222.entity.custom;
 
+import io.github.Tjonesy222.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -87,12 +89,12 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
     }
 
     public void playStepSound(BlockPos pos, BlockState block) {
-        this.playSound(this.getStepSound(), 0.15F, 1.0F);
+        this.playSound(this.getStepSound(), 0.4F, -2.0F);
     }
 
 
     protected SoundEvent getStepSound() {
-        return SoundEvents.AMETHYST_BLOCK_STEP;
+        return SoundEvents.SALMON_HURT;
     }
 
 
@@ -102,7 +104,7 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
 
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(random, difficulty);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack((ItemLike) ItemInit.SPAMSTAFF));
     }
 
     @Nullable
@@ -130,10 +132,8 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
         if (this.level() != null && !this.level().isClientSide) {
             this.goalSelector.removeGoal(this.meleeGoal);
             this.goalSelector.removeGoal(this.bowGoal);
-            ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, (item) -> {
-                return item instanceof BowItem;
-            }));
-            if (itemstack.is(Items.BOW)) {
+            ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, (item) -> item instanceof BowItem));
+            if (itemstack.is(ItemInit.SPAMSTAFF)) {
                 int i = this.getHardAttackInterval();
                 if (this.level().getDifficulty() != Difficulty.HARD) {
                     i = this.getAttackInterval();
@@ -141,8 +141,9 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
 
                 this.bowGoal.setMinAttackInterval(i);
                 this.goalSelector.addGoal(4, this.bowGoal);
-
             }
+
+
         }
 
     }
@@ -175,12 +176,12 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
         this.level().addFreshEntity(abstractarrow);
     }
 
-    protected AbstractArrow getArrow(ItemStack arrow, float velocity, @Nullable ItemStack weapon) {
-        return ProjectileUtil.getMobArrow(this, arrow, velocity, weapon);
+    public AbstractArrow customArrow(AbstractArrow arrow, ItemStack projectileStack, ItemStack weaponStack) {
+        return ProjectileUtil.getMobArrow(this, projectileStack,  2, weaponStack);
     }
 
     public boolean canFireProjectileWeapon(ProjectileWeaponItem projectileWeapon) {
-        return projectileWeapon == Items.BOW;
+        return projectileWeapon == ItemInit.SPAMSTAFF.value();
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
