@@ -18,6 +18,8 @@ public class ModEvents {
     public static void entityAttributeEvent(EntityAttributeCreationEvent event) {
         event.put(ModEntities.SPAMBABY.get(), SpambabyEntity.setAttributes());
         event.put(ModEntities.JELLYBABY.get(), JellyBabyEntity.setAttributes());
+        event.put(ModEntities.SPAMWIZARD.get(), JellyBabyEntity.setAttributes());
+
     }
 
 

@@ -2,6 +2,7 @@ package io.github.Tjonesy222;
 
 import io.github.Tjonesy222.entity.custom.JellyBabyEntity;
 import io.github.Tjonesy222.entity.custom.SpamProjEntity;
+import io.github.Tjonesy222.entity.custom.SpamWizard;
 import io.github.Tjonesy222.entity.custom.SpambabyEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +27,13 @@ public class ModEntities {
                     EntityType.Builder.of(JellyBabyEntity::new, MobCategory.CREATURE)
                             .sized(1,1.5f)
                             .build( ResourceLocation.fromNamespaceAndPath(SpamMod.MODID,"jellybaby").toString()));
+
+
+    public static final DeferredHolder<EntityType<?>, EntityType<SpamWizard>> SPAMWIZARD =
+            ENTITY_TYPES.register("spamwizard", () ->
+                    EntityType.Builder.of(SpamWizard::new, MobCategory.CREATURE)
+                            .sized(1,1.5f)
+                            .build( ResourceLocation.fromNamespaceAndPath(SpamMod.MODID,"spamwizard").toString()));
 
 
 

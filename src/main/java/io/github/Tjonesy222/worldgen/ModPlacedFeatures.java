@@ -24,7 +24,7 @@ public class ModPlacedFeatures {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
         register(context, SPAMOREPLACEDKEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.OVERWORLDSPAMOREKEY),
-                ModOrePlacement.commonOrePlacement(12,
+                ModOrePlacement.commonOrePlacement(6,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(45), VerticalAnchor.absolute(-65))));
     }
 

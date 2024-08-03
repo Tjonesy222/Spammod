@@ -4,6 +4,7 @@ import io.github.Tjonesy222.block.ModBlocks;
 import io.github.Tjonesy222.effect.ModEffects;
 import io.github.Tjonesy222.entity.client.JellyBabyRenderer;
 import io.github.Tjonesy222.entity.client.SpamProjRenderer;
+import io.github.Tjonesy222.entity.client.SpamWizardRenderer;
 import io.github.Tjonesy222.entity.client.SpambabyRenderer;
 import io.github.Tjonesy222.init.ItemInit;
 import io.github.Tjonesy222.ui.ModTabs;
@@ -39,7 +40,11 @@ public static void onClientSetup(FMLClientSetupEvent event) {
 
     EntityRenderers.register(ModEntities.JELLYBABY.get(), JellyBabyRenderer::new);
 
+    EntityRenderers.register(ModEntities.SPAMWIZARD.get(), SpamWizardRenderer::new);
+
     EntityRenderers.register(ModEntities.SPAMPROJENTITY.get(), SpamProjRenderer::new);
+
+
 
 
         }
