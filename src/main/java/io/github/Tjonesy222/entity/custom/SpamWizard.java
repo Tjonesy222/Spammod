@@ -40,13 +40,15 @@ import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 
+import static org.openjdk.nashorn.internal.objects.NativeSet.add;
+
 public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, GeoEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     private static final int HARD_ATTACK_INTERVAL = 20;
     private static final int NORMAL_ATTACK_INTERVAL = 40;
-    private final RangedBowAttackGoal<AbstractSkeleton> bowGoal = new RangedBowAttackGoal(this, 1.0, 20, 15.0F);
-    private final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2, false) {
+    private final RangedBowAttackGoal<AbstractSkeleton> bowGoal = new RangedBowAttackGoal(this, .3f, 1000, 25.0F);
+    private final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, .3f, false) {
         public void stop() {
             super.stop();
             SpamWizard.this.setAggressive(false);
@@ -72,9 +74,9 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
 
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new RestrictSunGoal(this));
-        this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal(this, Wolf.class, 6.0F, 1.0, 1.2));
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(4, new RandomStrollGoal(this,.4f));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal(this, Wolf.class, 6.0F, .3f, .3f));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -84,8 +86,15 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.25);
+    public static AttributeSupplier setAttributes() {
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH,24)
+                .add(Attributes.SCALE,1)
+                .add(Attributes.SAFE_FALL_DISTANCE,6).build();
+
+
+
+
     }
 
     public void playStepSound(BlockPos pos, BlockState block) {
@@ -149,11 +158,11 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
     }
 
     protected int getHardAttackInterval() {
-        return 20;
+        return 110;
     }
 
     protected int getAttackInterval() {
-        return 40;
+        return 120;
     }
 
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
@@ -177,7 +186,7 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
     }
 
     public AbstractArrow customArrow(AbstractArrow arrow, ItemStack projectileStack, ItemStack weaponStack) {
-        return ProjectileUtil.getMobArrow(this, projectileStack,  2, weaponStack);
+        return ProjectileUtil.getMobArrow(this, projectileStack,  .3f, weaponStack);
     }
 
     public boolean canFireProjectileWeapon(ProjectileWeaponItem projectileWeapon) {
@@ -197,9 +206,10 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
 
     }
 
-
-
-
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
+    }
 
     //animations//
     @Override

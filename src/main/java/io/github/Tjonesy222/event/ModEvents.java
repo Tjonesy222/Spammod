@@ -3,6 +3,7 @@ package io.github.Tjonesy222.event;
 import io.github.Tjonesy222.ModEntities;
 import io.github.Tjonesy222.SpamMod;
 import io.github.Tjonesy222.entity.custom.JellyBabyEntity;
+import io.github.Tjonesy222.entity.custom.SpamWizard;
 import io.github.Tjonesy222.entity.custom.SpambabyEntity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -18,7 +19,7 @@ public class ModEvents {
     public static void entityAttributeEvent(EntityAttributeCreationEvent event) {
         event.put(ModEntities.SPAMBABY.get(), SpambabyEntity.setAttributes());
         event.put(ModEntities.JELLYBABY.get(), JellyBabyEntity.setAttributes());
-        event.put(ModEntities.SPAMWIZARD.get(), JellyBabyEntity.setAttributes());
+        event.put(ModEntities.SPAMWIZARD.get(), SpamWizard.setAttributes());
 
     }
 
