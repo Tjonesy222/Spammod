@@ -11,6 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 
 
 @EventBusSubscriber(modid = SpamMod.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -25,3 +26,4 @@ public class ModEvents {
 
 
 }
+

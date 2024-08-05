@@ -14,8 +14,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ambient.Bat;
+import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -64,6 +66,19 @@ public class JellyBabyEntity extends Monster implements GeoEntity {
             }
 
         });
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, IronGolem.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Skeleton.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Spider.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Creeper.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Zombie.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Slime.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Witch.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Villager.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Cow.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Sheep.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Pig.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Chicken.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Wolf.class, true));
 
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class,true));
 

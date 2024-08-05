@@ -14,12 +14,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -83,7 +80,19 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, IronGolem.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Skeleton.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Spider.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Creeper.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Zombie.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Slime.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Witch.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Villager.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Cow.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Sheep.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Pig.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Chicken.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Wolf.class, true));
+
     }
 
     public static AttributeSupplier setAttributes() {
@@ -91,6 +100,7 @@ public class SpamWizard extends AbstractSkeleton implements RangedAttackMob, Geo
                 .add(Attributes.MAX_HEALTH,24)
                 .add(Attributes.SCALE,1)
                 .add(Attributes.SAFE_FALL_DISTANCE,6).build();
+
 
 
 
